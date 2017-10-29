@@ -23,10 +23,10 @@ def MRV(grid,x,y) :
 		for member in slist :
 			if(not mark[member]) :
 				for j in range(8) :
-					fxindex = xindex + row[i]
-					fyindex = yindex + col[i]
+					fxindex = xindex + row[j]
+					fyindex = yindex + col[j]
 					if(issafe(fxindex,fyindex)) :
-						if(grid[fxindex][fyindex] != " " and not mark[grid[fyindex][fyindex]] and mark[grid[fyindex][fxindex]] not in adj[member]) :
+						if(grid[fxindex][fyindex] != " " and not mark[grid[fxindex][fyindex]] and grid[fxindex][fyindex] not in adj[member]) :
 							pos -= 1
 							break
 		heappush(myheap,(pos,(xindex,yindex)))
@@ -100,7 +100,6 @@ while(t != 0) :
 		mark[i] = False
 	count = 0
 	myheap = []
-	heappush(myheap,(m*n,(0,0)))
 	if(solve(grid,0,0)) :
 		pprint(grid)
 	else :
