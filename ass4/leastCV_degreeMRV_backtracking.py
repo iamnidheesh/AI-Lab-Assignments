@@ -26,7 +26,7 @@ def degreeMRV(grid,x,y) :
 					fxindex = xindex + row[j]
 					fyindex = yindex + col[j]
 					if(issafe(fxindex,fyindex)) :
-						if(grid[fxindex][fyindex] != " " and not mark[grid[fxindex][fyindex]] and grid[fxindex][fyindex] not in adj[member]) :
+						if(grid[fxindex][fyindex] != " " and grid[fxindex][fyindex] not in adj[member]) :
 							pos -= 1
 							break
 		degree = 0
@@ -36,7 +36,7 @@ def degreeMRV(grid,x,y) :
 			if(issafe(fxindex,fyindex) and grid[fxindex][fyindex] == " ") :
 				degree += 1
 
-		heappush(myheap,(pos,degree,(xindex,yindex)))
+		heappush(myheap,(pos,-degree,(xindex,yindex)))
 	return heappop(myheap)[2]
 
 def leastConstrainedValue(available,x,y) :
@@ -86,7 +86,7 @@ def solve(grid,x,y) :
 					notavailable.add(student)
 					break
 
-	available = sorted(list(available.difference(notavailable)))
+	available = list(available.difference(notavailable))
 	if(len(available) == 0) :
 		return False
 	available = leastConstrainedValue(available,x,y)

@@ -26,7 +26,7 @@ def MRV(grid,x,y) :
 					fxindex = xindex + row[j]
 					fyindex = yindex + col[j]
 					if(issafe(fxindex,fyindex)) :
-						if(grid[fxindex][fyindex] != " " and not mark[grid[fxindex][fyindex]] and grid[fxindex][fyindex] not in adj[member]) :
+						if(grid[fxindex][fyindex] != " " and grid[fxindex][fyindex] not in adj[member]) :
 							pos -= 1
 							break
 		heappush(myheap,(pos,(xindex,yindex)))
