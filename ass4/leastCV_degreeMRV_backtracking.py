@@ -82,7 +82,7 @@ def solve(grid,x,y) :
 			xindex = x + row[i]
 			yindex = y + col[i]
 			if(issafe(xindex,yindex)) :
-				if(grid[xindex][yindex] != " " and grid[xindex][yindex] not in adj[student] and grid[xindex][yindex]  != student) :
+				if(grid[xindex][yindex] != " " and grid[xindex][yindex] not in adj[student] ) :
 					notavailable.add(student)
 					break
 
