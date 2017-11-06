@@ -10,7 +10,7 @@ def issafe(grid,x,y) :
 
 def solve(grid,sx,sy) :
 
-	row = [0,-1,-1,-1,0,1,1,1]
+	row = [0,1,1,1,0,-1,-1,-1]
 	col = [1,1,0,-1,-1,-1,0,1]
 	heap = []
 	dis = [[-1]*n for i in range(m)]
@@ -26,9 +26,10 @@ def solve(grid,sx,sy) :
 		for i in range(8) :
 			vx = ux + row[i]
 			vy = uy + col[i]
-			cost = 1
 			if(abs(vx) == 1 and abs(vy == 1)) :
 				cost = 1.414
+			else :
+				cost = 1
 			if(issafe(grid,vx,vy) ) :
 				if(dis[vx][vy] == -1 or dis[vx][vy] > cost + dis[ux][uy]) :
 					dis[vx][vy] = cost + dis[ux][uy]
@@ -44,16 +45,16 @@ while(t != 0) :
 	m,n = map(int,input().split())
 	grid = [list(map(int,input().split())) for i in range(m)]
 	sx,sy = map(int,input().split())
-	(par,dest) = solve(grid,sx-1,sy-1)
+	(par,dest) = solve(grid,sx,sy)
 	temp  = dest
 	path = []
 	while(par[temp[0]][temp[1]] != (-1,-1)) :
 		path.append(temp)
 		temp = par[temp[0]][temp[1]]
-
+	path.append(temp)
 	path.reverse()
 	for i in path :
-		print(i[0]+1,i[0]+1,end = " ")
+		print(i[0],i[1],end = " ")
 	print()
 
 
