@@ -30,11 +30,10 @@ def solve(grid,sx,sy) :
 				cost = 1.414
 			else :
 				cost = 1
-			if(issafe(grid,vx,vy) ) :
-				if(dis[vx][vy] == -1 or dis[vx][vy] > cost + dis[ux][uy]) :
-					dis[vx][vy] = cost + dis[ux][uy]
-					heappush(heap,(dis[vx][vy],(vx,vy)))
-					par[vx][vy] = (ux,uy)
+			if(issafe(grid,vx,vy) and dis[vx][vy] == -1) :
+				dis[vx][vy] = cost + dis[ux][uy]
+				heappush(heap,(dis[vx][vy],(vx,vy)))
+				par[vx][vy] = (ux,uy)
 	return (par,dest)
 
 m = 0
