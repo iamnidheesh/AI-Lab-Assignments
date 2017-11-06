@@ -7,34 +7,53 @@ def issafe(grid,x,y) :
 			return False
 	else :
 		return False
+def turnanticlock(x) :
+	if(x == 0) :
+		return 7
+	else :
+		return x - 1
+
+def turnclock(x) :
+	if(x == 7) :
+		return 0
+	else :
+		return x + 1
 
 def solve(grid,sx,sy) :
 
-	row = [0,1,1,1,0,-1,-1,-1]
-	col = [1,1,0,-1,-1,-1,0,1]
+
 	heap = []
 	dis = [[-1]*n for i in range(m)]
 	par = [[(-1,-1)]*n for i in range(m)]
-	heappush(heap,(0,(sx,sy)))
+	direction = [(0,1),(1,1),(1,0),(1,-1),(0,-1),(-1,-1),(-1,0),(-1,1)]
+	heappush(heap,(0,0,(sx,sy)))
 	dis[sx][sy] = 0
 	dest = (-1,-1)
 	while(len(heap) != 0) :
-		(ux,uy) = heappop(heap)[1]
+		top = heappop(heap)
+		(ux,uy) = top[2]
+		go = top[1]
+		curr_cost = top[0]
 		if(grid[ux][uy] == 1) :
 			dest = (ux,uy)
 			break
-		for i in range(8) :
-			vx = ux + row[i]
-			vy = uy + col[i]
-			if(abs(vx) == 1 and abs(vy == 1)) :
-				cost = 1.414
-			else :
-				cost = 1
-			if(issafe(grid,vx,vy) ) :
-				if(dis[vx][vy] == -1 or dis[vx][vy] > cost + dis[ux][uy]) :
-					dis[vx][vy] = cost + dis[ux][uy]
-					heappush(heap,(dis[vx][vy],(vx,vy)))
-					par[vx][vy] = (ux,uy)
+		#go in direction
+		vx = ux + direction[go][0]
+		vy = uy + direction[go][1]
+		if(abs(direction[go][0]) == 1 and abs(direction[go][1]) == 1) :
+			cost = 1.414
+		else :
+			cost = 1
+		if(issafe(grid,vx,vy) and dis[vx][vy] == -1 ) :
+			dis[vx][vy] = curr_cost + cost
+			heappush(heap,(dis[vx][vy],go,(vx,vy)))
+			par[vx][vy] = (ux,uy)
+		
+		#change direction clockwise
+		heappush(heap,(curr_cost+5,turnclock(go),(ux,uy)))
+		#change direction anticlockwise
+		heappush(heap,(curr_cost+5,turnanticlock(go),(ux,uy)))
+
 	return (par,dest)
 
 m = 0

@@ -34,6 +34,20 @@ def solve(grid,sx,sy) :
 				dis[vx][vy] = cost + dis[ux][uy]
 				heappush(heap,(dis[vx][vy],(vx,vy)))
 				par[vx][vy] = (ux,uy)
+			elif (not issafe(grid,vx,vy)) :
+				if(vx == m) :
+					vx = 0
+				if(vy == n) :
+					vy = 0
+				if(vx == -1) :
+					vx = m-1
+				if(vy == -1) :
+					vy = n-1 
+				if(dis[vx][vy] == -1 and (grid[vx][vy] == 0 or grid[vx][vy] == 1)) :
+					dis[vx][vy] = cost + dis[ux][uy]
+					heappush(heap,(dis[vx][vy],(vx,vy)))
+					par[vx][vy] = (ux,uy)
+
 	return (par,dest)
 
 m = 0
