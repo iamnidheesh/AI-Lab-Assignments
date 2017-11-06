@@ -26,7 +26,7 @@ def solve(grid,sx,sy) :
 		for i in range(8) :
 			vx = ux + row[i]
 			vy = uy + col[i]
-			if(abs(vx) == 1 and abs(vy == 1)) :
+			if(abs(row[i]) == 1 and abs(col[i]) == 1) :
 				cost = 1.414
 			else :
 				cost = 1
