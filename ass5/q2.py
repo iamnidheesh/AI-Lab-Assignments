@@ -1,12 +1,4 @@
 from queue import heappush,heappop
-def issafe(grid,x,y) :
-	if(x >= 0 and x < m and y >= 0 and y < n) :
-		if(grid[x][y] == 0 or grid[x][y] == 1) :
-			return True
-		else :
-			return False
-	else :
-		return False
 
 def solve(grid,sx,sy) :
 
@@ -24,29 +16,16 @@ def solve(grid,sx,sy) :
 			dest = (ux,uy)
 			break
 		for i in range(8) :
-			vx = ux + row[i]
-			vy = uy + col[i]
+			vx = (ux + row[i])%m
+			vy = (uy + col[i])%n
 			if(abs(row[i]) == 1 and abs(col[i]) == 1) :
 				cost = 1.414
 			else :
 				cost = 1
-			if(issafe(grid,vx,vy) and dis[vx][vy] == -1) :
+			if(grid[vx][vy] != -1 and dis[vx][vy] == -1) :
 				dis[vx][vy] = cost + dis[ux][uy]
 				heappush(heap,(dis[vx][vy],(vx,vy)))
 				par[vx][vy] = (ux,uy)
-			elif (not issafe(grid,vx,vy)) :
-				if(vx == m) :
-					vx = 0
-				if(vy == n) :
-					vy = 0
-				if(vx == -1) :
-					vx = m-1
-				if(vy == -1) :
-					vy = n-1 
-				if(dis[vx][vy] == -1 and (grid[vx][vy] == 0 or grid[vx][vy] == 1)) :
-					dis[vx][vy] = cost + dis[ux][uy]
-					heappush(heap,(dis[vx][vy],(vx,vy)))
-					par[vx][vy] = (ux,uy)
 
 	return (par,dest)
 
